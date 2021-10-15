@@ -21,6 +21,7 @@ class MainProcessor(
         "3" -> CalculateProcessor().calculate()
         "4" -> exit()
         "5" -> info()
+        else -> continue
       }
     }
   }

@@ -1,19 +1,22 @@
 package processor
 
 import domain.Item
+import printer.ItemPrinter
 import repository.ItemRepository
 
 class ItemProcessor(
   private val itemRepository: ItemRepository,
+  private val itemPrinter: ItemPrinter = ItemPrinter()
 ) {
   fun run() {
     while (true) {
-      itemRepository.itemPrinter.command()
+      itemPrinter.command()
       when(readLine()) {
         "1" -> itemRepository.searchAll()
         "2" -> create()
         "3" -> delete()
         "4" -> return
+        else -> continue
       }
     }
   }
@@ -34,6 +37,7 @@ class ItemProcessor(
         }
       )
     }
+    itemPrinter.create()
   }
 
   fun delete() {
@@ -43,5 +47,6 @@ class ItemProcessor(
       itemRepository.remove(input)
     else
       println("해당 상품 번호는 없습니다.")
+    itemPrinter.remove()
   }
 }
